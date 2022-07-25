@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 
@@ -35,6 +36,40 @@ export const getStaticProps = async( context ) => {
 
 export default function Pokemon({ pokemon }) {
   return (
-    <div>{pokemon.name}</div>
+    <div className="poke">
+      <h1>{pokemon.name}</h1>
+      <Image
+        src={`https://cdn.traction.one/pokedex/pokemon/${pokemon.id}.png`}
+        width="200"
+        height="200"
+        alt="Pokemon Name"
+      />
+
+      <div>
+        <h3>Número:</h3>
+        <p>#{pokemon.id}</p>
+      </div>
+
+      <div>
+        <h3>Tipo:</h3>
+        <div className="poke__content">
+          {pokemon.types.map(( item, index ) => (
+            <span key={index} className={`type ${'type_' + item.type.name}`}>{item.type.name}</span>
+          ))}
+        </div>
+      </div>
+
+      <div className="poke__data">
+        <div className="height">
+          <h4>Altura:</h4>
+          <p>{pokemon.height * 10} cm</p>
+        </div>
+
+        <div className="weight">
+          <h4>Peso:</h4>
+          <p>{pokemon.weight / 10} kg</p>
+        </div>
+      </div>
+    </div>
   )
 }
